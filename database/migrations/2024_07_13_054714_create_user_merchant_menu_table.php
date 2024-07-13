@@ -16,7 +16,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_profile_id')->constrained()->cascadeOnDelete();
             $table->foreignId('merchant_menu_id')->constrained()->cascadeOnDelete();
-            $table->integer('portion')->default(1);
+            $table->integer('portion')->default(0);
             $table->timestamps();
         });
     }

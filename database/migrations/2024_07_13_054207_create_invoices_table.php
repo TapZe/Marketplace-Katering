@@ -17,7 +17,7 @@ return new class extends Migration
             $table->text('address');
             $table->string('contact', 255);
             $table->dateTime('delivery_date');
-            $table->dateTime('payment_time');
+            $table->dateTime('payment_time')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

@@ -1,52 +1,90 @@
-<x-guest-layout>
-    <form method="POST" action="{{ route('register') }}">
-        @csrf
+<!DOCTYPE html>
+<html lang="en">
 
-        <!-- Name -->
-        <div>
-            <x-input-label for="name" :value="__('Name')" />
-            <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
-            <x-input-error :messages="$errors->get('name')" class="mt-2" />
+@include("auth.layout.header")
+
+<body>
+    <div class="main-wrapper">
+        <div class="page-wrapper full-page">
+            <div class="page-content d-flex align-items-center justify-content-center">
+                <div class="row w-100 mx-0 auth-page">
+                    <div class="col-md-8 col-xl-6 mx-auto">
+                        <div class="card">
+                            <div class="row">
+                                <div class="col-md-4 pe-md-0">
+                                    <div class="auth-side-wrapper">
+                                        <img style="width: 100%; height: 100%; object-fit: cover;"
+                                            src="{{ asset('images/MK Logo.jpg') }}" alt="Image">
+                                    </div>
+                                </div>
+                                <div class="col-md-8 ps-md-0">
+                                    <div class="auth-form-wrapper px-4 py-5">
+                                        <a href="#" class="noble-ui-logo d-block mb-2">Marketplace
+                                            <span>Katering</span></a>
+                                        <h5 class="text-muted fw-normal mb-4">Selamat Datang! Silakan daftar akun
+                                            anda!</h5>
+                                        <form action="{{ route('register') }}" method="post" autocomplete="off">
+                                            @csrf
+                                            <div class="mb-3">
+                                                <label for="name" class="form-label">Nama</label>
+                                                <input type="text" class="form-control" id="name" name="name"
+                                                    placeholder="Masukkan nama anda!" value="{{ old('name') }}" required>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="email" class="form-label">Alamat Email</label>
+                                                <input type="text" class="form-control" id="email" name="email"
+                                                    placeholder="Masukkan email anda!" value="{{ old('email') }}" required>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="password" class="form-label">Password</label>
+                                                <input type="password" class="form-control" id="password"
+                                                    name="password" autocomplete="current-password"
+                                                    placeholder="Password" value="{{ old('password') }}" required>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="password_confirmation" class="form-label">Konfirmasi Password</label>
+                                                <input type="password" class="form-control" id="password_confirmation"
+                                                    name="password_confirmation" autocomplete="new-password"
+                                                    placeholder="Password" value="{{ old('password') }}" required>
+                                            </div>
+                                            <div class="form-check mb-3">
+                                                <input type="checkbox" class="form-check-input" id="merchant"
+                                                    name="merchant" {{ old('merchant') ? 'checked' : '' }}>
+                                                <label class="form-check-label" for="merchant">
+                                                    Mendaftar sebagai penjual makanan/merchant.
+                                                </label>
+                                            </div>
+                                            <div>
+                                                <button type="submit"
+                                                    class="btn btn-primary me-2 mb-2 mb-md-0 text-white">Daftar</button>
+                                            </div>
+                                            <div class="d-block mt-3"><a href="{{ route('login') }}">Sudah memiliki
+                                                    akun?</a></div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-4">
+                        @if ($errors->any())
+                            @foreach ($errors->all() as $error)
+                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                    <i data-feather="alert-circle"></i>
+                                    {{ $error }}
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                        aria-label="btn-close"></button>
+                                </div>
+                            @endforeach
+                        @endif
+                    </div>
+                </div>
+            </div>
         </div>
+    </div>
 
-        <!-- Email Address -->
-        <div class="mt-4">
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
-        </div>
+    @include('auth.layout.costumScript')
 
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
+</body>
 
-            <x-text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="new-password" />
-
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
-        </div>
-
-        <!-- Confirm Password -->
-        <div class="mt-4">
-            <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
-
-            <x-text-input id="password_confirmation" class="block mt-1 w-full"
-                            type="password"
-                            name="password_confirmation" required autocomplete="new-password" />
-
-            <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
-        </div>
-
-        <div class="flex items-center justify-end mt-4">
-            <a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800" href="{{ route('login') }}">
-                {{ __('Already registered?') }}
-            </a>
-
-            <x-primary-button class="ms-4">
-                {{ __('Register') }}
-            </x-primary-button>
-        </div>
-    </form>
-</x-guest-layout>
+</html>

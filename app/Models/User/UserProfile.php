@@ -47,7 +47,7 @@ class UserProfile extends Model
      */
     public function shopCart(): BelongsToMany
     {
-        return $this->belongsToMany(MerchantMenu::class)->using(UserMerchantMenu::class);
+        return $this->belongsToMany(MerchantMenu::class)->using(UserMerchantMenu::class)->withPivot('portion');
     }
 
     /**

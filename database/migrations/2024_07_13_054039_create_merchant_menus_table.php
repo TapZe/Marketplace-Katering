@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name', 255);
             $table->text('description');
-            $table->string('foto', 255);
+            $table->string('foto', 255)->nullable();
             $table->integer('price')->default(500);
             $table->foreignId('menu_type_id')->constrained()->onDelete('cascade');
             $table->foreignId('user_profile_id')->constrained()->onDelete('cascade');
