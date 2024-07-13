@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Customer;
 
 use App\Http\Controllers\Controller;
+use App\Models\Merchant\Invoice;
 use Illuminate\Http\Request;
 
 class CustomerInvoiceController extends Controller
@@ -28,7 +29,24 @@ class CustomerInvoiceController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'address' => ['required', 'string'],
+            'contact' => ['required', 'numeric'],
+            'delivery_date' => ['required', 'date'],
+        ]);
+        $userCart = auth()->user()->userProfile()->shopCart();
+        $data = $request->all();
 
+        $total_price = 0;
+        foreach ($userCart as $item) {
+            $total_price += ($item->pivot->portion * $item->price);
+        }
+        $data['$total_price'] = $total_price;
+        $created = Invoice::create($data);
+
+        if ($created) {
+            session()->flash('status', 'Berhasil membuat invoice!');
+        }
     }
 
     /**

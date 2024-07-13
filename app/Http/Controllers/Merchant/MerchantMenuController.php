@@ -53,8 +53,7 @@ class MerchantMenuController extends Controller
         $addData = MerchantMenu::create($data);
 
         if ($addData) {
-            session()->flash('status', 'success');
-            session()->flash('message', 'Berhasil menambahkan menu!');
+            session()->flash('status', 'Berhasil menambahkan menu!');
         }
 
         return redirect()->route('cart.index')->withInput();
@@ -109,8 +108,7 @@ class MerchantMenuController extends Controller
         $editData->update($data);
 
         if ($editData) {
-            session()->flash('status', 'success');
-            session()->flash('message', 'Berhasil memodifikasi barang dari menu!');
+            session()->flash('status', 'Berhasil memodifikasi barang dari menu!');
         }
 
         return redirect()->route('cart.index')->withInput();
@@ -128,8 +126,7 @@ class MerchantMenuController extends Controller
         $deleteData->delete();
 
         if ($deleteData) {
-            session()->flash('status', 'success');
-            session()->flash('message', 'Berhasil menghapus barang dari menu!');
+            session()->flash('status', 'Berhasil menghapus barang dari menu!');
         }
 
         return redirect()->route('cart.index')->withInput();

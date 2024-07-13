@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User\UserProfile;
 use Illuminate\Http\Request;
 
 class UserProfileController extends Controller
@@ -27,7 +28,21 @@ class UserProfileController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => ['required', 'string'],
+            'address' => ['required', 'string'],
+            'contact'=> ['required', 'numeric'],
+            'description'=> ['required', 'string'],
+        ]);
+        $data = $request->all();
+        $data['user_id'] = auth()->user()->id;
+
+        $created = UserProfile::createOrRestore($data);
+
+        if ($created) {
+            session()->flash('status', 'Berhasil menambah data diri!');
+        }
+        return redirect()->route('userProfile.index');
     }
 
     /**
@@ -51,7 +66,22 @@ class UserProfileController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $updateData = UserProfile::findOrFail($id);
+        $request->validate([
+            'name' => ['required', 'string'],
+            'address' => ['required', 'string'],
+            'contact'=> ['required', 'numeric'],
+            'description'=> ['required', 'string'],
+        ]);
+        $data = $request->all();
+        $data['user_id'] = auth()->user()->id;
+
+        $updateData->update($data);
+
+        if ($updateData) {
+            session()->flash('status', 'Berhasil mengubah data diri!');
+        }
+        return redirect()->route('userProfile.index');
     }
 
     /**
