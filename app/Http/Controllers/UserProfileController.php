@@ -89,6 +89,13 @@ class UserProfileController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $updateData = UserProfile::findOrFail($id);
+        $updateData->delete();
+
+        if ($updateData) {
+            session()->flash('status', 'Berhasil menghapus seluruh data diri!');
+        }
+
+        return redirect()->route('userProfile.index');
     }
 }

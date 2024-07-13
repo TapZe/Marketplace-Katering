@@ -62,14 +62,6 @@ class CustomerCartController extends Controller
      */
     public function update(Request $request, string $id)
     {
-
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
         $merchant_menu_id = $id;
         $userCart = auth()->user()->userProfile()->shopCart();
         $portion = $userCart->where('merchant_menu_id', $merchant_menu_id)->first()->pivot->portion - 1;
@@ -78,6 +70,16 @@ class CustomerCartController extends Controller
         } else {
             $userCart->updateExistingPivot($merchant_menu_id, ['portion' => $portion]);
         }
+        return redirect()->back();
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(string $id)
+    {
+        $deleteCart = auth()->user()->userProfile()->shopCart();
+        $deleteCart->detach();
         return redirect()->back();
     }
 }

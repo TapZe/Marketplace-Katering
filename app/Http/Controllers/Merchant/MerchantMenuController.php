@@ -56,7 +56,7 @@ class MerchantMenuController extends Controller
             session()->flash('status', 'Berhasil menambahkan menu!');
         }
 
-        return redirect()->route('cart.index')->withInput();
+        return redirect()->route('MerchantMenu.index')->withInput();
     }
 
     /**
@@ -111,7 +111,7 @@ class MerchantMenuController extends Controller
             session()->flash('status', 'Berhasil memodifikasi barang dari menu!');
         }
 
-        return redirect()->route('cart.index')->withInput();
+        return redirect()->route('MerchantMenu.index')->withInput();
     }
 
     /**
@@ -129,6 +129,6 @@ class MerchantMenuController extends Controller
             session()->flash('status', 'Berhasil menghapus barang dari menu!');
         }
 
-        return redirect()->route('cart.index')->withInput();
+        return redirect()->route('MerchantMenu.index')->withInput();
     }
 }
