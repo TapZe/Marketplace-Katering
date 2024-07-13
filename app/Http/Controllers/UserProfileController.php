@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\Customer;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class CustomerInvoiceController extends Controller
+class UserProfileController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -28,7 +27,7 @@ class CustomerInvoiceController extends Controller
      */
     public function store(Request $request)
     {
-
+        //
     }
 
     /**

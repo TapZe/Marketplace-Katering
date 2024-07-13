@@ -1,11 +1,11 @@
 <?php
 
-use App\Http\Controllers\Merchant\MerchantMenuController;
-use App\Http\Middleware\EnsureUserIsMerchant;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UserController;
 use App\Http\Middleware\EnsureUserIsCustomer;
+use App\Http\Middleware\EnsureUserIsMerchant;
 use App\Http\Controllers\Customer\CustomerCartController;
+use App\Http\Controllers\Merchant\MerchantMenuController;
 
 Route::get('/', function () {
     // return view('welcome');
@@ -17,9 +17,9 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/profile', [UserController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [UserController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [UserController::class, 'destroy'])->name('profile.destroy');
 });
 
 Route::middleware(['auth', EnsureUserIsCustomer::class])->group(function () {
