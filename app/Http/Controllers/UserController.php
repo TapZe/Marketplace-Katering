@@ -16,7 +16,7 @@ class UserController extends Controller
      */
     public function edit(Request $request): View
     {
-        return view('profile.edit', [
+        return view('user.edit', [
             'user' => $request->user(),
         ]);
     }
@@ -34,7 +34,7 @@ class UserController extends Controller
 
         $request->user()->save();
 
-        return Redirect::route('profile.edit')->with('status', 'profile-updated');
+        return Redirect::route('user.edit')->with('status', 'Data user telah dirubah');
     }
 
     /**

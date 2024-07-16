@@ -11,12 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('user_profiles', function (Blueprint $table) {
+        Schema::create('reviews', function (Blueprint $table) {
             $table->id();
-            $table->text('address');
-            $table->string('contact', 255);
-            $table->text('description');
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->tinyInteger('rating');
+            $table->text('description')->nullable();
+            $table->foreignId('user_profile_id')->constrained()->cascadeOnDelete();
             $table->timestamps();
             $table->softDeletes();
         });
@@ -27,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('user_profiles');
+        Schema::dropIfExists('reviews');
     }
 };

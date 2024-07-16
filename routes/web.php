@@ -8,25 +8,25 @@ use App\Http\Controllers\Customer\CustomerCartController;
 use App\Http\Controllers\Merchant\MerchantMenuController;
 
 Route::get('/', function () {
-    // return view('welcome');
-    return redirect()->route('login');
+    if(auth()->check()) return redirect()->route('dashboard');
+    return view('hero.welcome');
 });
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    return view('hero.dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
-    Route::get('/profile', [UserController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [UserController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [UserController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/user', [UserController::class, 'edit'])->name('user.edit');
+    Route::patch('/user', [UserController::class, 'update'])->name('user.update');
+    // Route::delete('/user', [UserController::class, 'destroy'])->name('user.destroy');
 });
 
-Route::middleware(['auth', EnsureUserIsCustomer::class])->group(function () {
+Route::middleware(['auth', 'verified', EnsureUserIsCustomer::class])->group(function () {
     Route::resource('/ShoppingCart', CustomerCartController::class)->names('Cart');
 });
 
-Route::middleware(['auth', EnsureUserIsMerchant::class])->group(function () {
+Route::middleware(['auth', 'verified', EnsureUserIsMerchant::class])->group(function () {
     Route::resource('/MerchantMenu', MerchantMenuController::class)->names('MerchantMenu');
 });
 

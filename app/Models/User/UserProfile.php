@@ -6,7 +6,7 @@ use App\Models\Merchant\Invoice;
 use App\Models\Merchant\MerchantMenu;
 use App\Models\Merchant\Pivot\MerchantMenuInvoice;
 use App\Models\Merchant\Pivot\UserMerchantMenu;
-use App\Models\User\User;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -23,7 +23,6 @@ class UserProfile extends Model
      * @var array
      */
     protected $fillable = [
-        'name',
         'address',
         'contact',
         'description',
@@ -69,5 +68,15 @@ class UserProfile extends Model
     {
         return $this->belongsToMany(UserProfile::class, 'merchant_menu_invoice', 'user_profile_id', 'merchant_profile_id')
             ->using(MerchantMenuInvoice::class);
+    }
+
+    /**
+     * The review that belong to the UserProfile
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function review(): BelongsToMany
+    {
+        return $this->belongsToMany(Review::class);
     }
 }
